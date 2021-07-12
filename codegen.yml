@@ -1,6 +1,5 @@
 overwrite: true
 schema: './backend/api-graphql/src/schema.ts'
-documents: null
 generates:
   ./backend/domain/src/generated-interfaces.ts:
     plugins:
@@ -17,3 +16,10 @@ generates:
       immutableTypes: true
       typesPrefix: I
       contextType: ./context#IContext
+  ./frontend/graphql/src/generated-operation-types.ts:
+    documents: './frontend/graphql/src/apollo-client.ts'
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+    config:
+      immutableTypes: true

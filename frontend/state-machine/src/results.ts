@@ -1,6 +1,7 @@
 import { createModel } from 'xstate/lib/model'
+import { FetchSearchResultsQuery } from '@frontend/graphql'
 
-type Results = {}
+type Results = FetchSearchResultsQuery
 export enum TransitionDirection {
   Forward,
   Backward,

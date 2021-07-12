@@ -1,5 +1,5 @@
 {
-  "name": "@frontend/state-machine",
+  "name": "@frontend/graphql",
   "version": "1.0.0",
   "main": "src/index.ts",
   "types": "dist/index.d.ts",
@@ -7,7 +7,6 @@
   "license": "None",
   "dependencies": {
     "@apollo/client": "^3.3.21",
-    "graphql-tag": "^2.12.5",
-    "xstate": "^4.22.0"
+    "graphql-tag": "^2.12.5"
   }
 }

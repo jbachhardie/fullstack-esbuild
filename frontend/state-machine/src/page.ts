@@ -1,21 +1,28 @@
 import { ActorRefFrom, spawn, assign, send } from 'xstate'
 import { createModel } from 'xstate/lib/model'
+import { queries } from '@frontend/graphql'
 import { paginationMachine, paginationModel } from './pagination'
 import { resultsMachine, resultsModel, TransitionDirection } from './results'
 import { searchMachine, searchModel } from './search'
+import { ApolloError } from '@apollo/client'
 
-export type ErrorCode = 'RATE_LIMITED' | 'UNKNOWN_ERROR'
+type FetchError =
+  | {
+      type: 'RATE_LIMITED'
+      until?: number
+    }
+  | { type: 'UNKNOWN_ERROR' }
 
 export const pageModel = createModel(
   {
     search: null as ActorRefFrom<typeof searchMachine>,
     results: null as ActorRefFrom<typeof resultsMachine>,
     pagination: null as ActorRefFrom<typeof paginationMachine>,
-    query: null as string | null,
+    query: '',
     page: 1,
     queuedTransition: null as TransitionDirection | null,
     searchResults: null,
-    errorCode: null as ErrorCode | null,
+    error: null as FetchError | null,
   },
   {
     events: {
@@ -93,9 +100,21 @@ export const pageMachine = pageModel.createMachine(
           },
           onError: {
             target: 'waiting',
-            actions: assign({
-              errorCode: (_, event) => event.data,
-            }),
+            actions: [
+              send(searchModel.events.loadingFinished(), {
+                to: (context) => context.search,
+              }),
+              send(
+                (context) =>
+                  paginationModel.events.loadingFinished(context.page),
+                {
+                  to: (context) => context.pagination,
+                }
+              ),
+              assign({
+                error: (_, event) => event.data,
+              }),
+            ],
           },
         },
       },
@@ -103,8 +122,25 @@ export const pageMachine = pageModel.createMachine(
   },
   {
     services: {
-      fetchSearchResults: async () => {
-        throw new Error('not implemented')
+      fetchSearchResults: async ({ query, page }) => {
+        try {
+          return await queries.fetchSearchResults({ query, page })
+        } catch (err) {
+          const rateLimitedError = (err as ApolloError).graphQLErrors?.find(
+            (graphqlError) =>
+              graphqlError.extensions?.['code'] === 'RATE_LIMIT_EXCEEDED'
+          )
+          if (rateLimitedError) {
+            throw {
+              type: 'RATE_LIMIT_EXCEEDED',
+              until: rateLimitedError.extensions?.['waitUntil'],
+            }
+          } else {
+            throw {
+              type: 'UNKNOWN_ERROR',
+            }
+          }
+        }
       },
     },
   }

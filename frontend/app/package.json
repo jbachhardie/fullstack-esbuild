@@ -6,10 +6,11 @@
   "esbuild": "src/index.ts",
   "license": "None",
   "scripts": {
-    "start": "esbuild src/index.tsx --bundle --serve --sourcemap --servedir=public --outdir=public/bundle",
-    "build": "esbuild src/index.tsx --bundle --minify --outdir=public/bundle"
+    "start": "esbuild src/index.tsx --define:process.env.NODE_ENV=\\\"development\\\" --bundle --serve --sourcemap --servedir=public --outdir=public/bundle",
+    "build": "esbuild src/index.tsx --define:process.env.NODE_ENV=\\\"production\\\" --bundle --minify --outdir=public/bundle"
   },
   "dependencies": {
+    "@xstate/react": "^1.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
