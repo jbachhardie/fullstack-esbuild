@@ -1,5 +1,6 @@
 const args = require('minimist')(process.argv.slice(2))
 const { fork } = require('child_process')
+const dotenv = require('dotenv')
 
 const watching = !!args['watch']
 
@@ -7,7 +8,15 @@ const watching = !!args['watch']
 let childServerProcess
 function startServer() {
   console.log('server started')
-  childServerProcess = fork('./bundle/server.js')
+  const { parsed, error } = dotenv.config()
+  if (error) {
+    console.error('Failed to parse env file', error)
+    process.exit(1)
+  } else {
+    childServerProcess = fork('./bundle/server.js', {
+      env: parsed,
+    })
+  }
 }
 function restartServer() {
   if (childServerProcess.exitCode === null) {
