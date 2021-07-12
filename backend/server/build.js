@@ -25,7 +25,6 @@ require('esbuild')
     outfile: 'bundle/server.js',
     platform: 'node',
     target: 'node14',
-    mainFields: ['esbuild', 'main', 'module'],
     bundle: true,
     watch: watching && {
       onRebuild(error, result) {
