@@ -8,44 +8,28 @@ export const typeDefs = gql`
   type UserSearchPage {
     resultsCount: Int!
     resultsAreIncomplete: Boolean!
-    results: [User!]!
+    results: [UserResult!]!
+  }
+
+  type UserResult {
+    textMatches: [TextMatch!]!
+    userId: ID!
+    user: User
   }
 
   type User {
-    login: String!
-    id: Int!
-    nodeId: String!
+    id: ID!
     avatarUrl: String!
-    gravatarId: String
     url: String!
-    htmlUrl: String!
-    followersUrl: String!
-    subscriptionsUrl: String!
-    organizationsUrl: String!
-    reposUrl: String!
-    receivedEventsUrl: String!
-    type: String!
-    score: Int!
-    followingUrl: String!
-    gistsUrl: String!
-    starredUrl: String!
-    eventsUrl: String!
     publicRepos: Int!
     publicGists: Int!
     followers: Int!
     following: Int!
-    createdAt: String!
-    updatedAt: String!
     name: String
-    bio: String
-    email: String
-    location: String
-    siteAdmin: Boolean!
-    hireable: Boolean
-    textMatches: [TextMatch!]!
     blog: String
     company: String
-    suspendedAt: String
+    email: String
+    location: String
   }
 
   type TextMatch {

@@ -1,3 +1,3 @@
-import { GitHubRESTSearchService } from './github-rest-search-service'
+import { GitHubRESTUserService } from './github-rest-user-service'
 
-export { GitHubRESTSearchService }
+export { GitHubRESTUserService }

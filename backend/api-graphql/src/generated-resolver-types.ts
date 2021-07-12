@@ -33,47 +33,32 @@ export type ITextMatch = {
 
 export type IUser = {
   readonly __typename?: 'User';
-  readonly login: Scalars['String'];
-  readonly id: Scalars['Int'];
-  readonly nodeId: Scalars['String'];
+  readonly id: Scalars['ID'];
   readonly avatarUrl: Scalars['String'];
-  readonly gravatarId?: Maybe<Scalars['String']>;
   readonly url: Scalars['String'];
-  readonly htmlUrl: Scalars['String'];
-  readonly followersUrl: Scalars['String'];
-  readonly subscriptionsUrl: Scalars['String'];
-  readonly organizationsUrl: Scalars['String'];
-  readonly reposUrl: Scalars['String'];
-  readonly receivedEventsUrl: Scalars['String'];
-  readonly type: Scalars['String'];
-  readonly score: Scalars['Int'];
-  readonly followingUrl: Scalars['String'];
-  readonly gistsUrl: Scalars['String'];
-  readonly starredUrl: Scalars['String'];
-  readonly eventsUrl: Scalars['String'];
   readonly publicRepos: Scalars['Int'];
   readonly publicGists: Scalars['Int'];
   readonly followers: Scalars['Int'];
   readonly following: Scalars['Int'];
-  readonly createdAt: Scalars['String'];
-  readonly updatedAt: Scalars['String'];
   readonly name?: Maybe<Scalars['String']>;
-  readonly bio?: Maybe<Scalars['String']>;
-  readonly email?: Maybe<Scalars['String']>;
-  readonly location?: Maybe<Scalars['String']>;
-  readonly siteAdmin: Scalars['Boolean'];
-  readonly hireable?: Maybe<Scalars['Boolean']>;
-  readonly textMatches: ReadonlyArray<ITextMatch>;
   readonly blog?: Maybe<Scalars['String']>;
   readonly company?: Maybe<Scalars['String']>;
-  readonly suspendedAt?: Maybe<Scalars['String']>;
+  readonly email?: Maybe<Scalars['String']>;
+  readonly location?: Maybe<Scalars['String']>;
+};
+
+export type IUserResult = {
+  readonly __typename?: 'UserResult';
+  readonly textMatches: ReadonlyArray<ITextMatch>;
+  readonly userId: Scalars['ID'];
+  readonly user?: Maybe<IUser>;
 };
 
 export type IUserSearchPage = {
   readonly __typename?: 'UserSearchPage';
   readonly resultsCount: Scalars['Int'];
   readonly resultsAreIncomplete: Scalars['Boolean'];
-  readonly results: ReadonlyArray<IUser>;
+  readonly results: ReadonlyArray<IUserResult>;
 };
 
 
@@ -146,8 +131,10 @@ export type IResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   TextMatch: ResolverTypeWrapper<ITextMatch>;
   User: ResolverTypeWrapper<IUser>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  UserResult: ResolverTypeWrapper<IUserResult>;
   UserSearchPage: ResolverTypeWrapper<IUserSearchPage>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -157,8 +144,10 @@ export type IResolversParentTypes = {
   Int: Scalars['Int'];
   TextMatch: ITextMatch;
   User: IUser;
-  Boolean: Scalars['Boolean'];
+  ID: Scalars['ID'];
+  UserResult: IUserResult;
   UserSearchPage: IUserSearchPage;
+  Boolean: Scalars['Boolean'];
 };
 
 export type IQueryResolvers<ContextType = IContext, ParentType extends IResolversParentTypes['Query'] = IResolversParentTypes['Query']> = {
@@ -172,47 +161,32 @@ export type ITextMatchResolvers<ContextType = IContext, ParentType extends IReso
 };
 
 export type IUserResolvers<ContextType = IContext, ParentType extends IResolversParentTypes['User'] = IResolversParentTypes['User']> = {
-  login?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<IResolversTypes['Int'], ParentType, ContextType>;
-  nodeId?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<IResolversTypes['ID'], ParentType, ContextType>;
   avatarUrl?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  gravatarId?: Resolver<Maybe<IResolversTypes['String']>, ParentType, ContextType>;
   url?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  htmlUrl?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  followersUrl?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  subscriptionsUrl?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  organizationsUrl?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  reposUrl?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  receivedEventsUrl?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  type?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  score?: Resolver<IResolversTypes['Int'], ParentType, ContextType>;
-  followingUrl?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  gistsUrl?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  starredUrl?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  eventsUrl?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
   publicRepos?: Resolver<IResolversTypes['Int'], ParentType, ContextType>;
   publicGists?: Resolver<IResolversTypes['Int'], ParentType, ContextType>;
   followers?: Resolver<IResolversTypes['Int'], ParentType, ContextType>;
   following?: Resolver<IResolversTypes['Int'], ParentType, ContextType>;
-  createdAt?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
-  updatedAt?: Resolver<IResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<Maybe<IResolversTypes['String']>, ParentType, ContextType>;
-  bio?: Resolver<Maybe<IResolversTypes['String']>, ParentType, ContextType>;
-  email?: Resolver<Maybe<IResolversTypes['String']>, ParentType, ContextType>;
-  location?: Resolver<Maybe<IResolversTypes['String']>, ParentType, ContextType>;
-  siteAdmin?: Resolver<IResolversTypes['Boolean'], ParentType, ContextType>;
-  hireable?: Resolver<Maybe<IResolversTypes['Boolean']>, ParentType, ContextType>;
-  textMatches?: Resolver<ReadonlyArray<IResolversTypes['TextMatch']>, ParentType, ContextType>;
   blog?: Resolver<Maybe<IResolversTypes['String']>, ParentType, ContextType>;
   company?: Resolver<Maybe<IResolversTypes['String']>, ParentType, ContextType>;
-  suspendedAt?: Resolver<Maybe<IResolversTypes['String']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<IResolversTypes['String']>, ParentType, ContextType>;
+  location?: Resolver<Maybe<IResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type IUserResultResolvers<ContextType = IContext, ParentType extends IResolversParentTypes['UserResult'] = IResolversParentTypes['UserResult']> = {
+  textMatches?: Resolver<ReadonlyArray<IResolversTypes['TextMatch']>, ParentType, ContextType>;
+  userId?: Resolver<IResolversTypes['ID'], ParentType, ContextType>;
+  user?: Resolver<Maybe<IResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type IUserSearchPageResolvers<ContextType = IContext, ParentType extends IResolversParentTypes['UserSearchPage'] = IResolversParentTypes['UserSearchPage']> = {
   resultsCount?: Resolver<IResolversTypes['Int'], ParentType, ContextType>;
   resultsAreIncomplete?: Resolver<IResolversTypes['Boolean'], ParentType, ContextType>;
-  results?: Resolver<ReadonlyArray<IResolversTypes['User']>, ParentType, ContextType>;
+  results?: Resolver<ReadonlyArray<IResolversTypes['UserResult']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -220,6 +194,7 @@ export type IResolvers<ContextType = IContext> = {
   Query?: IQueryResolvers<ContextType>;
   TextMatch?: ITextMatchResolvers<ContextType>;
   User?: IUserResolvers<ContextType>;
+  UserResult?: IUserResultResolvers<ContextType>;
   UserSearchPage?: IUserSearchPageResolvers<ContextType>;
 };
 

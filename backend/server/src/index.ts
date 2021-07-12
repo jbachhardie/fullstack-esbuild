@@ -1,10 +1,10 @@
 import { createGraphQLServer, IContext } from '@backend/api-graphql'
-import { GitHubRESTSearchService } from '@backend/data-sources'
+import { GitHubRESTUserService } from '@backend/data-sources'
 
 function createContext(): IContext {
   return {
     services: {
-      search: new GitHubRESTSearchService(),
+      user: new GitHubRESTUserService(),
     },
   }
 }

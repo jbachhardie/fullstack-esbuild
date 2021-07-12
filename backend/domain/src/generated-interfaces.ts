@@ -30,45 +30,30 @@ export type ITextMatch = {
 
 export type IUser = {
   readonly __typename?: 'User';
-  readonly login: Scalars['String'];
-  readonly id: Scalars['Int'];
-  readonly nodeId: Scalars['String'];
+  readonly id: Scalars['ID'];
   readonly avatarUrl: Scalars['String'];
-  readonly gravatarId?: Maybe<Scalars['String']>;
   readonly url: Scalars['String'];
-  readonly htmlUrl: Scalars['String'];
-  readonly followersUrl: Scalars['String'];
-  readonly subscriptionsUrl: Scalars['String'];
-  readonly organizationsUrl: Scalars['String'];
-  readonly reposUrl: Scalars['String'];
-  readonly receivedEventsUrl: Scalars['String'];
-  readonly type: Scalars['String'];
-  readonly score: Scalars['Int'];
-  readonly followingUrl: Scalars['String'];
-  readonly gistsUrl: Scalars['String'];
-  readonly starredUrl: Scalars['String'];
-  readonly eventsUrl: Scalars['String'];
   readonly publicRepos: Scalars['Int'];
   readonly publicGists: Scalars['Int'];
   readonly followers: Scalars['Int'];
   readonly following: Scalars['Int'];
-  readonly createdAt: Scalars['String'];
-  readonly updatedAt: Scalars['String'];
   readonly name?: Maybe<Scalars['String']>;
-  readonly bio?: Maybe<Scalars['String']>;
-  readonly email?: Maybe<Scalars['String']>;
-  readonly location?: Maybe<Scalars['String']>;
-  readonly siteAdmin: Scalars['Boolean'];
-  readonly hireable?: Maybe<Scalars['Boolean']>;
-  readonly textMatches: ReadonlyArray<ITextMatch>;
   readonly blog?: Maybe<Scalars['String']>;
   readonly company?: Maybe<Scalars['String']>;
-  readonly suspendedAt?: Maybe<Scalars['String']>;
+  readonly email?: Maybe<Scalars['String']>;
+  readonly location?: Maybe<Scalars['String']>;
+};
+
+export type IUserResult = {
+  readonly __typename?: 'UserResult';
+  readonly textMatches: ReadonlyArray<ITextMatch>;
+  readonly userId: Scalars['ID'];
+  readonly user?: Maybe<IUser>;
 };
 
 export type IUserSearchPage = {
   readonly __typename?: 'UserSearchPage';
   readonly resultsCount: Scalars['Int'];
   readonly resultsAreIncomplete: Scalars['Boolean'];
-  readonly results: ReadonlyArray<IUser>;
+  readonly results: ReadonlyArray<IUserResult>;
 };

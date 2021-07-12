@@ -4,5 +4,8 @@
   "main": "src/index.ts",
   "types": "dist/index.d.ts",
   "esbuild": "src/index.ts",
-  "license": "None"
+  "license": "None",
+  "dependencies": {
+    "apollo-server-errors": "^3.0.0"
+  }
 }

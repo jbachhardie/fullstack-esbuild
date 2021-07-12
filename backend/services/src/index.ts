@@ -1,7 +1,7 @@
-import { SearchService } from './search'
+import { UserService } from './user'
 
 export interface IServices {
-  search: SearchService
+  user: UserService
 }
 
-export { SearchService }
+export { UserService }

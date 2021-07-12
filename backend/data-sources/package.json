@@ -4,5 +4,9 @@
   "main": "src/index.ts",
   "types": "dist/index.d.ts",
   "esbuild": "src/index.ts",
-  "license": "None"
+  "license": "None",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "zod": "^3.5.1"
+  }
 }
