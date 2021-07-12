@@ -1,0 +1,16 @@
+{
+  "name": "@backend/server",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "esbuild": "src/index.ts",
+  "license": "None",
+  "scripts": {
+    "typecheck": "tsc --build",
+    "build": "node build.js",
+    "start": "yarn build --watch"
+  },
+  "devDependencies": {
+    "minimist": "^1.2.5"
+  }
+}

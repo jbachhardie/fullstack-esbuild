@@ -1,0 +1,19 @@
+overwrite: true
+schema: './backend/api-graphql/src/schema.ts'
+documents: null
+generates:
+  ./backend/domain/src/generated-interfaces.ts:
+    plugins:
+      - 'typescript'
+    config:
+      immutableTypes: true
+      typesPrefix: I
+  ./backend/api-graphql/src/generated-resolver-types.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-resolvers'
+    config:
+      noSchemaStitching: true
+      immutableTypes: true
+      typesPrefix: I
+      contextType: ./context#IContext

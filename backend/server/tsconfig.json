@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "include": ["./src"],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "references": [
+    { "path": "../api-graphql" },
+    { "path": "../data-sources" },
+    { "path": "../domain" },
+    { "path": "../services" }
+  ]
+}

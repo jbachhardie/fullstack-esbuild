@@ -1,0 +1,8 @@
+{
+  "name": "@backend/services",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "esbuild": "src/index.ts",
+  "license": "None"
+}

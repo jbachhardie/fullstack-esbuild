@@ -1,0 +1,26 @@
+{
+  "name": "fullstack-esbuild",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jbachhardie/fullstack-esbuild.git",
+  "author": "jabh@hey.com",
+  "license": "None",
+  "private": true,
+  "workspaces": [
+    "backend/*"
+  ],
+  "devDependencies": {
+    "@graphql-codegen/cli": "1.21.6",
+    "@graphql-codegen/typescript": "1.22.4",
+    "@graphql-codegen/typescript-resolvers": "1.19.5",
+    "esbuild": "^0.12.15",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "graphql": "^15.5.1"
+  },
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen.yml",
+    "start": "yarn workspace @backend/server start"
+  }
+}
