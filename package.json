@@ -7,7 +7,8 @@
   "license": "None",
   "private": true,
   "workspaces": [
-    "backend/*"
+    "backend/*",
+    "frontend/*"
   ],
   "devDependencies": {
     "@graphql-codegen/cli": "1.21.6",
@@ -17,6 +18,7 @@
     "esbuild": "^0.12.15",
     "esbuild-jest": "^0.5.0",
     "jest": "^27.0.6",
+    "npm-run-all": "^4.1.5",
     "typescript": "^4.3.5"
   },
   "dependencies": {
@@ -24,7 +26,9 @@
   },
   "scripts": {
     "codegen": "graphql-codegen --config codegen.yml",
-    "start": "yarn workspace @backend/server start",
+    "start": "run-p start:*",
+    "start:backend": "yarn workspace @backend/server start",
+    "start:frontend": "yarn workspace @frontend/app start",
     "test": "jest"
   }
 }

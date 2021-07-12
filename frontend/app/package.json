@@ -1,0 +1,20 @@
+{
+  "name": "@frontend/app",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "esbuild": "src/index.ts",
+  "license": "None",
+  "scripts": {
+    "start": "esbuild src/index.tsx --bundle --serve --sourcemap --servedir=public --outdir=public/bundle",
+    "build": "esbuild src/index.tsx --bundle --minify --outdir=public/bundle"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.14",
+    "@types/react-dom": "^17.0.9"
+  }
+}
