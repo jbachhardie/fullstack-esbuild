@@ -1,0 +1,11 @@
+{
+  "name": "@frontend/state-machine",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "esbuild": "src/index.ts",
+  "license": "None",
+  "dependencies": {
+    "xstate": "^4.22.0"
+  }
+}
