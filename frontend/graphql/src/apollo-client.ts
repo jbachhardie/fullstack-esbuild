@@ -12,7 +12,7 @@ const apolloClient = new ApolloClient({
   uri:
     // @ts-ignore
     process.env.NODE_ENV === 'production'
-      ? 'TODO'
+      ? '/graphql'
       : 'http://localhost:4000/graphql',
 })
 

@@ -45,10 +45,9 @@ require('esbuild')
       },
     },
   })
-  .then(({ stop }) => {
+  .then(() => {
     process.on('beforeExit', () => {
-      stop()
-      childServerProcess.kill()
+      childServerProcess?.kill()
     })
     console.log('build succeeded')
     if (watching) {

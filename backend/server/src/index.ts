@@ -12,7 +12,9 @@ function createContext(): IContext {
 ;(async () => {
   const server = await createGraphQLServer(createContext)
 
-  const { url } = await server.listen()
+  const { url } = await server.listen({
+    port: process.env['NODE_ENV'] === 'production' ? 80 : 4000,
+  })
 
   console.log(`Server ready at ${url}`)
 })()
