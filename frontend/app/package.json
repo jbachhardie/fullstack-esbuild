@@ -6,16 +6,20 @@
   "esbuild": "src/index.ts",
   "license": "None",
   "scripts": {
-    "start": "esbuild src/index.tsx --define:process.env.NODE_ENV=\\\"development\\\" --bundle --serve --sourcemap --servedir=public --outdir=public/bundle",
-    "build": "esbuild src/index.tsx --define:process.env.NODE_ENV=\\\"production\\\" --bundle --minify --outdir=public/bundle"
+    "build": "node build.js",
+    "start": "yarn build --watch"
   },
   "dependencies": {
+    "@vanilla-extract/css": "^1.1.0",
+    "@vanilla-extract/esbuild-plugin": "^1.1.0",
+    "@xstate/inspect": "^0.4.1",
     "@xstate/react": "^1.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@types/react": "^17.0.14",
-    "@types/react-dom": "^17.0.9"
+    "@types/react-dom": "^17.0.9",
+    "minimist": "^1.2.5"
   }
 }

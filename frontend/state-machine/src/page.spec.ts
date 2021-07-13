@@ -1,7 +1,7 @@
 import { interpret } from 'xstate'
 import { pageMachine } from './page'
 import { paginationModel } from './pagination'
-import { TransitionDirection } from './results'
+import { resultsModel, TransitionDirection } from './results'
 import { searchModel } from './search'
 
 const fetchSearchResults = jest.fn()
@@ -51,7 +51,7 @@ it('when the user types in a search, loads that search and queues a transition',
 it('when the user goes to the next page, loads that page and queues a transition', (done) => {
   const mockData = {
     searchUsers: {
-      resultsCount: 1,
+      resultsCount: 100,
       results: [
         {
           textMatches: [],
@@ -64,6 +64,19 @@ it('when the user goes to the next page, loads that page and queues a transition
   }
   fetchSearchResults.mockResolvedValue(mockData)
   const pageService = interpret(pageMachineWithMocks).onTransition((state) => {
+    console.log(state.toStrings())
+    if (
+      state.matches('waiting') &&
+      state.context.searchResults &&
+      state.context.page === 1
+    ) {
+      pageService.state.context.results.send(
+        resultsModel.events.transitionComplete()
+      )
+      pageService.state.context.pagination.send(
+        paginationModel.events.nextPage()
+      )
+    }
     if (
       state.matches('waiting') &&
       state.context.searchResults &&
@@ -79,13 +92,14 @@ it('when the user goes to the next page, loads that page and queues a transition
     }
   })
   pageService.start()
-  pageService.state.context.pagination.send(paginationModel.events.nextPage())
+  pageService.state.context.search.send(searchModel.events.updateInput('foo'))
+  pageService.state.context.search.send(searchModel.events.submit())
 })
 
 it('when the user goes to the previous page, loads that page and queues a transition', (done) => {
   const mockData = {
     searchUsers: {
-      resultsCount: 1,
+      resultsCount: 200,
       results: [
         {
           textMatches: [],
@@ -101,20 +115,6 @@ it('when the user goes to the previous page, loads that page and queues a transi
     if (
       state.matches('waiting') &&
       state.context.searchResults &&
-      state.context.page < 5
-    ) {
-      state.context.pagination.send(paginationModel.events.nextPage())
-    }
-    if (
-      state.matches('waiting') &&
-      state.context.searchResults &&
-      state.context.page === 5
-    ) {
-      state.context.pagination.send(paginationModel.events.previousPage())
-    }
-    if (
-      state.matches('waiting') &&
-      state.context.searchResults &&
       state.context.results?.getSnapshot()?.context.transitionDirection ===
         TransitionDirection.Backward &&
       state.context.results?.getSnapshot()?.matches('transitioning')
@@ -124,7 +124,28 @@ it('when the user goes to the previous page, loads that page and queues a transi
       pageService.stop()
       done()
     }
+    if (
+      state.matches('waiting') &&
+      state.context.searchResults &&
+      state.context.page < 5
+    ) {
+      pageService.state.context.results.send(
+        resultsModel.events.transitionComplete()
+      )
+      state.context.pagination.send(paginationModel.events.nextPage())
+    }
+    if (
+      state.matches('waiting') &&
+      state.context.searchResults &&
+      state.context.page === 5
+    ) {
+      pageService.state.context.results.send(
+        resultsModel.events.transitionComplete()
+      )
+      state.context.pagination.send(paginationModel.events.previousPage())
+    }
   })
   pageService.start()
-  pageService.state.context.pagination.send(paginationModel.events.nextPage())
+  pageService.state.context.search.send(searchModel.events.updateInput('foo'))
+  pageService.state.context.search.send(searchModel.events.submit())
 })
