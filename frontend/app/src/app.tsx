@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useActor, useMachine } from '@xstate/react'
 import {
   pageMachine,
@@ -19,7 +19,9 @@ import {
   resultTitleStyle,
   searchBoxStyle,
   searchStyle,
-  themeClass,
+  darkTheme,
+  lightTheme,
+  themeButtonStyle,
 } from './app.css'
 import { inspect } from '@xstate/inspect'
 import { ApolloError } from '@apollo/client'
@@ -27,9 +29,13 @@ import { ApolloError } from '@apollo/client'
 // @ts-ignore
 const inDevMode = process.env.NODE_ENV !== 'production'
 
-inspect({ iframe: false })
+if (inDevMode) {
+  // Display popup window with xstate inspector
+  inspect({ iframe: false })
+}
 
 export default function App() {
+  const [darkMode, setDarkMode] = useState(true)
   const [state] = useMachine(pageMachine, {
     devTools: inDevMode,
     services: {
@@ -83,7 +89,13 @@ export default function App() {
   )
 
   return (
-    <div className={themeClass}>
+    <div className={darkMode ? darkTheme : lightTheme}>
+      <button
+        className={themeButtonStyle}
+        onClick={() => setDarkMode((x) => !x)}
+      >
+        {darkMode ? 'Light Mode' : 'Dark Mode'}
+      </button>
       <div className={containerStyle}>
         <div className={gridStyle}>
           <h1>Search Users on Github</h1>

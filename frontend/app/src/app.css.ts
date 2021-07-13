@@ -1,19 +1,29 @@
 import { createTheme, globalStyle, style } from '@vanilla-extract/css'
 
-export const [themeClass, theme] = createTheme({
+export const [darkTheme, theme] = createTheme({
   color: {
-    brand: 'blue',
     background: '#333',
     primary: '#f5f5f5',
-    secondary: '#f0f0f0',
+    secondary: '#ddd',
   },
-  font: {
-    body: 'arial',
+})
+
+export const lightTheme = createTheme(theme, {
+  color: {
+    background: '#f5f5f5',
+    primary: '#333',
+    secondary: '#777',
   },
 })
 
 globalStyle('html, body', {
   margin: 0,
+})
+
+export const themeButtonStyle = style({
+  position: 'absolute',
+  right: '1rem',
+  top: '1rem',
 })
 
 export const containerStyle = style({
